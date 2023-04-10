@@ -1,10 +1,10 @@
-import { Context } from "netlify:edge"
+import { Context } from 'netlify:edge';
 
 const pathRegex = /^.*\/hub?/
 
 const trailingSlashRegex = /\/$/
 const proxyUrl = "https://read.uberflip.com/hub"
-const hostHeader = "www.nathanpoch.com"
+const hostHeader = "np-proxy-test.netlify.app"
 
 
 export default async (request: Request, { geo }: Context) => {
@@ -67,12 +67,12 @@ export default async (request: Request, { geo }: Context) => {
 
     if (response.redirected == true) {
       let responseURL = response.url;
-      const baseRegex = /^.*https\:\/\/read\.uberflip\.com\/hub-live?/;
+      const baseRegex = /^.*https\:\/\/read\.uberflip\.com\/hub?/;
       const baseRegexNoPath = /^.*https\:\/\/read\.uberflip\.com?/;
       
       if(responseURL.match(baseRegex) || responseURL.match(baseRegexNoPath)){
         const replaceSearch = responseURL.match(baseRegex) ? baseRegex : baseRegexNoPath;
-        responseURL = responseURL.replace(replaceSearch, `https://${hostHeader}/hub-live`);
+        responseURL = responseURL.replace(replaceSearch, `https://${hostHeader}/hub`);
       }
       return new Response(null, {
         status: 301,
