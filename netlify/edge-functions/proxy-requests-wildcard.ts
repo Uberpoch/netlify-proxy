@@ -4,7 +4,7 @@ const pathRegex = /^.*\/hub?/
 
 const trailingSlashRegex = /\/$/
 const proxyUrl = "https://read.uberflip.com/hub"
-const hostHeader = "np-proxy-test.netlify.app"
+const hostHeader = "www.foodyfeasts.com"
 
 
 export default async (request: Request, { geo }: Context) => {
