@@ -56,7 +56,7 @@ export default async (request: Request, { geo }: Context) => {
         'X-Original-Host': hostHeader,
         'X-Netlify-Hostname': hostHeader,
       },
-      redirect: request.redirect,
+      redirect: "manual",
       body: request.body,
     })
 
