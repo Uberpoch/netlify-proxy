@@ -12,7 +12,7 @@ export default async (request: Request, { geo }: Context) => {
   // *** commented out the if statement because it was conflicting with my site in hugo
   // if(Deno.env.get('GATSBY_LOCALE') === 'us') {
   // console.log('DENO: ', Deno);
-  // console.log('initial request: ', request);
+  console.log('initial request: ', request);
   // console.log('context: ', Context);
   //proxy to uberflip logic which strips off the trailing slash
   const newUrl = new URL(request.url);
@@ -27,16 +27,17 @@ export default async (request: Request, { geo }: Context) => {
   // console.log('Has trailing slash: ', hasTrailingSlash);
 
   if (!hasTrailingSlash) {
-    // console.log('Does NOT have trailing slash');
+    console.log('Does NOT have trailing slash');
     let withSlashUrl = `${url}/${qs}`
     console.log('withSlashUrl inside if: ', withSlashUrl);
+    console.log('');
 
     return Response.redirect(withSlashUrl, 308)
   } else {
-    // console.log('DOES have trailing slash');
+    console.log('DOES have trailing slash');
     // *** ran the path regex on just the URL
     let path = url.replace(pathRegex, proxyUrl);
-    console.log('Path: ', path);
+    //console.log('Path: ', path);
 
     // console.log('PATH: ', path);
     // *** removed trailing slash on just the url
@@ -59,10 +60,11 @@ export default async (request: Request, { geo }: Context) => {
       body: request.body,
     })
 
-    // console.log('PROXYREQUEST: ', proxyRequest)
+    console.log('PROXYREQUEST: ', proxyRequest)
 
     const response = await fetch(proxyRequest)
 
+    console.log('');
     console.log('RESPONSE: ', response)
 
     if (response.redirected == true) {
@@ -74,6 +76,7 @@ export default async (request: Request, { geo }: Context) => {
         const replaceSearch = responseURL.match(baseRegex) ? baseRegex : baseRegexNoPath;
         responseURL = responseURL.replace(replaceSearch, `https://${hostHeader}/hub`);
       }
+      console.log('');
       return new Response(null, {
         status: 301,
         headers: {
@@ -82,7 +85,7 @@ export default async (request: Request, { geo }: Context) => {
       })
       // }
     }
-
+    console.log('');
     return response
   }
 
