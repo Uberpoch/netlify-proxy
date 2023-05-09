@@ -76,7 +76,7 @@ export default async (request: Request, { geo }: Context) => {
         const replaceSearch = responseURL.match(baseRegex) ? baseRegex : baseRegexNoPath;
         responseURL = responseURL.replace(replaceSearch, `https://${hostHeader}/hub`);
       }
-      console.log('');
+      console.log('Within return if');
       return new Response(null, {
         status: response.status,
         headers: {
