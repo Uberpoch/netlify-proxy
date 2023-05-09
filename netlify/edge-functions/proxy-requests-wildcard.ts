@@ -67,7 +67,7 @@ export default async (request: Request, { geo }: Context) => {
     console.log('');
     console.log('RESPONSE: ', response)
 
-    if (response.redirected == true) {
+    if (response.status >= 300 && response.status < 400) {
       let responseURL = response.url;
       const baseRegex = /^.*https\:\/\/read\.uberflip\.com\/hub?/;
       const baseRegexNoPath = /^.*https\:\/\/read\.uberflip\.com?/;
@@ -78,14 +78,14 @@ export default async (request: Request, { geo }: Context) => {
       }
       console.log('');
       return new Response(null, {
-        status: 301,
+        status: response.status,
         headers: {
           Location: responseURL
         },
       })
       // }
     }
-    console.log('');
+    console.log('NEW RESPONSE: ', response);
     return response
   }
 
