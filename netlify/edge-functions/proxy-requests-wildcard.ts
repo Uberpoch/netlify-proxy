@@ -67,25 +67,25 @@ export default async (request: Request, { geo }: Context) => {
     console.log('');
     console.log('RESPONSE: ', response)
 
-    if (response.status >= 300 && response.status < 400) {
-      let responseURL = response.url;
-      const baseRegex = /^.*https\:\/\/read\.uberflip\.com\/hub?/;
-      const baseRegexNoPath = /^.*https\:\/\/read\.uberflip\.com?/;
+    // if (response.status >= 300 && response.status < 400) {
+    //   let responseURL = response.url;
+    //   const baseRegex = /^.*https\:\/\/read\.uberflip\.com\/hub?/;
+    //   const baseRegexNoPath = /^.*https\:\/\/read\.uberflip\.com?/;
       
-      if(responseURL.match(baseRegex) || responseURL.match(baseRegexNoPath)){
-        const replaceSearch = responseURL.match(baseRegex) ? baseRegex : baseRegexNoPath;
-        responseURL = responseURL.replace(replaceSearch, `https://${hostHeader}/hub`);
-      }
-      console.log('Within return if');
-      return new Response(null, {
-        status: response.status,
-        headers: {
-          Location: responseURL
-        },
-      })
-      // }
-    }
-    console.log('NEW RESPONSE: ', response);
+    //   if(responseURL.match(baseRegex) || responseURL.match(baseRegexNoPath)){
+    //     const replaceSearch = responseURL.match(baseRegex) ? baseRegex : baseRegexNoPath;
+    //     responseURL = responseURL.replace(replaceSearch, `https://${hostHeader}/hub`);
+    //   }
+    //   console.log('Within return if');
+    //   return new Response(null, {
+    //     status: response.status,
+    //     headers: {
+    //       Location: responseURL
+    //     },
+    //   })
+    //   // }
+    // }
+    // console.log('NEW RESPONSE: ', response);
     return response
   }
 
